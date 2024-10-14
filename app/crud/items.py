@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-import models, schemas
+from app import models, schemas
 
 
 def get_items(db: Session, skip: int = 0, limit: int = 100):
@@ -15,7 +15,6 @@ def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
 
 def create_student(db:Session, student : schemas.StudentSer):
     stu_obj = models.Student(id = student.id, name=student.name)
-    import pdb;pdb.set_trace()
     db.add(stu_obj)
     db.commit()
     db.refresh(stu_obj)

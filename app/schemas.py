@@ -37,3 +37,8 @@ class User(UserBase):
 class StudentSer(BaseModel):
     id : int
     name : str
+
+
+class Address(BaseModel):
+    id : int
+    email_address : str
