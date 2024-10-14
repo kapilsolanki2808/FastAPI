@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
-from database import Base
+from app.database import Base
 from pydantic import Field
 
 class User(Base):
@@ -11,8 +11,8 @@ class User(Base):
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
 
-    # items = relationship("Item", back_populates="owner")
-
+    items = relationship("Item", back_populates="owner")
+    address = relationship("Address", back_populates="user")
 
 class Item(Base):
     __tablename__ = "items"
@@ -29,3 +29,14 @@ class Student(Base):
     __tablename__ = "students"
     id = Column(Integer, primary_key=True)
     name = Column(String)
+
+class Address(Base):
+    __tablename__ = "address"
+
+    id = Column(Integer, primary_key=True)
+    email_address = Column(String)
+    user_id = Column(ForeignKey("users.id"))
+    user = relationship("User", back_populates="address")
+
+    # def __repr__(self) -> str:
+    #     return f"Address(id={self.id!r}, email_address={self.email_address!r})"
