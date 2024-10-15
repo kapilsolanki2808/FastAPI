@@ -2,7 +2,7 @@ from fastapi import Depends, APIRouter
 from app import crud, schemas
 from sqlalchemy.orm import Session
 from app.dependency import get_db
-
+from app.crud import items
 router = APIRouter()
                                                                                                                                                                         
 
@@ -24,5 +24,5 @@ def create_item_for_user(
 
 @router.get("/items/", response_model=list[schemas.Item])
 def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    items = crud.items.get_items(db, skip=skip, limit=limit)
+    items = items.get_items(db, skip=skip, limit=limit)
     return items
